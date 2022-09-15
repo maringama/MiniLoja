@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja virtual</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;1,100;1,300;1,400;1,700&display=swap" rel="stylesheet">
+    <style>
+
+        *{
+            font-family: 'Lato', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        #produtos{
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2%;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        #carrinho{
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2%;
+            display: block;
+        }
+
+        .produto-single {
+            width: 32%;
+            margin-right: 1%;
+            border: 1px solid #ccc;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .produto-single p{
+            text-align: center;
+            font-size: 16px;
+            padding: 10px;
+        }
+
+        .produto-single a{
+            text-decoration: none;
+            color: white;
+            background-color: #76BA99;
+            text-align: center;
+            display: block;
+            padding: 5px 0;
+            font-size: 18px;
+        }
+
+        h2 {
+            background-color: #7F5283;
+            padding: 15px 0;
+            text-align: center;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .produto-single img{
+            max-width: 100%;
+            
+        }
+
+        @media screen and (max-width: 500px){
+            .produto-single {
+                width: 100%;
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>Vitrine</h2>
+    <div id="produtos">
+        
+    </div>
+    <h2>Carrinho</h2>
+    <div id="carrinho">
+        
+    </div>
+
+    <script>
+        const items = [
+            {
+                id: 0,
+                nome: 'Camiseta cropped',
+                img: 'img-1.jpeg',
+                quantidade: 0
+            },
+            {
+                id: 1,
+                nome: 'Casaco',
+                img: 'img-2.jpeg',
+                quantidade: 0
+            },
+            {
+                id: 2,
+                nome: 'Camiseta',
+                img: 'img-3.jpeg',
+                quantidade: 0
+            },
+            {
+                id: 3,
+                nome: 'Calça',
+                img: 'img-4.jpeg',
+                quantidade: 0
+            },
+            {
+                id: 4,
+                nome: 'Tenis',
+                img: 'img-6.jpeg',
+                quantidade: 0
+            },
+            {
+                id: 5,
+                nome: 'blazer',
+                img: 'img-5.jpeg',
+                quantidade: 0
+            },
+            
+
+
+        ]
+
+        function inicializarLoja(){
+            var containerProdutos = document.getElementById('produtos');
+            items.map((val)=> {
+                containerProdutos.innerHTML+= `
+                
+                <div class="produto-single">
+                    <img src="`+val.img+`" />
+                    <p> `+val.nome+` </p>
+                    <a key="`+val.id+`" href="#"> Adicionar ao carrinho </a>
+                </div>
+
+                `
+            })
+        }
+
+        inicializarLoja();
+
+        function atualizarCarrinho(){
+            var containerCarrinho = document.getElementById('carrinho');
+            containerCarrinho.innerHTML = '';
+            items.map((val)=> {
+                if (val.quantidade > 0) {
+                containerCarrinho.innerHTML+= `
+                
+            <p> `+val.nome+` | quantidade: `+val.quantidade+`</p>
+            <hr>
+            `;
+            }
+            })
+
+        }
+
+        var links = document.getElementsByTagName('a');
+
+        for(var i=0; i< links.length; i++){
+            links[i].addEventListener("click", function(){
+                let key= this.getAttribute('key');
+                items[key].quantidade++;
+                atualizarCarrinho();
+            })
+        }
+            
+
+    </script>
+
+</body>
+</html>
